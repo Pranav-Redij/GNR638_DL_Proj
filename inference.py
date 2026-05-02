@@ -27,11 +27,12 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 # ── Args ──────────────────────────────────────────────────────
 parser = argparse.ArgumentParser()
 parser.add_argument("--test_dir", required=True, help="Absolute path to test directory")
+parser.add_argument("--model_dir", default=None, help="Path to model weights")
 args = parser.parse_args()
 
 # ── Paths (all relative to THIS script's directory) ───────────
 SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR   = os.path.join(SCRIPT_DIR, "model_weights")        # downloaded by setup.bash
+MODEL_DIR   = args.model_dir if args.model_dir else os.path.join(SCRIPT_DIR, "model_weights")
 TEST_DIR    = args.test_dir
 TEST_CSV    = os.path.join(TEST_DIR, "test.csv")
 OUTPUT_CSV  = os.path.join(SCRIPT_DIR, "submission.csv")       # saved next to script
